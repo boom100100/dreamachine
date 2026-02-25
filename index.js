@@ -4,7 +4,7 @@ const instructionsText = `Welcome to the Dreamachine!<br /><br />
 WARNING: Before you begin, please note that flickering lights may trigger seizures due to photosensitive epilepsy. Please do not use Dreamachine if you have reason to believe this condition applies to you or anyone around you.<br /><br />
 Instructions<br /><br />
 Increase screen brightness to the highest setting.<br />
-Optional: set flickersPerSecond to a value between 8 and 13 inclusive via the <a target="_blank" href="https://developer.chrome.com/docs/devtools/console/javascript">browser console</a>.<br />
+Optional: set flickersPerSecond to a value between 8 (default) and 13, inclusive via the <a target="_blank" href="https://developer.chrome.com/docs/devtools/console/javascript">browser console</a>.<br />
 Press "Start".<br />
 Close your eyes.<br />
 Click or tap the screen to end.<br />
