@@ -2,7 +2,7 @@ const instructionsText = `Welcome to the Dreamachine!<br /><br />
 WARNING: Before you begin, please note that flickering lights may trigger seizures due to photosensitive epilepsy. Please do not use Dreamachine if you have reason to believe this condition applies to you or anyone around you.<br /><br />
 Instructions<br /><br />
 Increase screen brightness to the highest setting.<br />
-Optional: set flickersPerSecond to a value between 1 and 20, inclusive (default: 7).<br />
+Optional: set frequency to a value between 1 and 20, inclusive (default: 7).<br />
 Optional: set style to "strobe" (default) or "rotating".<br />
 Press "Start".<br />
 Close your eyes.<br />
