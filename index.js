@@ -67,7 +67,6 @@ const getMachineButton = () => {
 const setAnimate = (machineButton) => {
   const lowerUpperLimit = [8, 13];
   const flickers = (flickersPerSecond || lowerUpperLimit[0]);
-  console.log(flickers);
   const rate =  1000 / flickers;
   const colorTransition = [
     {
