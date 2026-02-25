@@ -67,20 +67,27 @@ const getMachineButton = () => {
 const setAnimate = (machineButton) => {
   const lowerUpperLimit = [8, 13];
   const flickers = (flickersPerSecond || lowerUpperLimit[0]);
-  const rate =  1000 / flickers;
+  const rate =  (1000 / flickers) * 4;
+  const clips = [.66, .33, 0];
+  let clipIndex = 0;
+  const getTransition = (percentage, opacity, clipIndex) => ({
+      background: `linear-gradient(to right, black, white, black) ${percentage}%/90% 100% no-repeat`,
+      opacity: opacity,
+      clipPath: `xywh(0 ${clips[clipIndex % clips.length] * 100}% 100% 45%)`
+    });
   const colorTransition = [
-    {
-      background: "linear-gradient(to right, black, white, black) 200%/90% 100% no-repeat",
-      opacity: 1,
-    },
-    {
-      background: "linear-gradient(to right, black, white, black) 0%/90% 100% no-repeat",
-      opacity: .8,
-    },
-    {
-      background: "linear-gradient(to right, black, white, black) -200%/90% 100% no-repeat",
-      opacity: 0,
-    },
+    getTransition(200, 0, clipIndex),
+    getTransition(200, 1, clipIndex),
+    getTransition(0, .8, clipIndex),
+    getTransition(-200, 0, clipIndex++),
+    getTransition(200, 0, clipIndex),
+    getTransition(200, 1, clipIndex),
+    getTransition(0, .8, clipIndex),
+    getTransition(-200, 0, clipIndex++),
+    getTransition(200, 0, clipIndex),
+    getTransition(200, 1, clipIndex),
+    getTransition(0, .8, clipIndex),
+    getTransition(-200, 0, clipIndex++),
   ];
   const timing = {
     duration: rate,
