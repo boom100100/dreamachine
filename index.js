@@ -1,11 +1,14 @@
+var flickersPerSecond;
+
 const instructionsText = `Welcome to the Dreamachine!<br /><br />
-WARNING: Before you begin, please note that flickering lights may trigger seizures due to photosensitive epilepsy. Please do not use Dreamachine if you have reason to believe this condition applies to you.<br /><br />
+WARNING: Before you begin, please note that flickering lights may trigger seizures due to photosensitive epilepsy. Please do not use Dreamachine if you have reason to believe this condition applies to you or anyone around you.<br /><br />
 Instructions<br /><br />
 Increase screen brightness to the highest setting.<br />
+Optional: set flickersPerSecond to a value between 8 (default) and 13, inclusive via the <a target="_blank" href="https://developer.chrome.com/docs/devtools/console/javascript">browser console</a>.<br />
 Press "Start".<br />
 Close your eyes.<br />
 Click or tap the screen to end.<br />
-Learn more on <a href="https://en.wikipedia.org/wiki/Dreamachine">Wikipedia</a>.
+Learn more on <a target="_blank" href="https://en.wikipedia.org/wiki/Dreamachine">Wikipedia</a>.
 `;
 
 const getInstructions = () => {
@@ -44,25 +47,48 @@ const getMachineButton = () => {
   machineButton.style.height = "100vh";
   machineButton.style.border = "0 black solid";
   machineButton.style.display = "none";
-  machineButton.style.backgroundColor = "black";
+  machineButton.style.background = "#000000";
   const setShowMachineButton = (isShow) => {
-      machineButton.style.display = isShow ? "block" : "none";
+    if (isShow) {
+      setAnimate(machineButton);
+      machineButton.style.display = "block";
+      return;
+    }
+    machineButton.style.display = "none";
   }
   machineButton.addEventListener("click", () => {
     setShowMachineButton(false);
     document.exitFullscreen();
   });
-  const lowerUpperLimit = [8, 13];
-  const rate =  1000 / lowerUpperLimit[0]; // 8 times per second
-  const delay = 50;
-  setTimeout(() => {
-    setInterval(() => machineButton.style.backgroundColor = "white", rate);
-  }, 0);
-  setTimeout(() => {
-    setInterval(() => machineButton.style.backgroundColor = "black", rate);
-  }, delay);
 
   return {machineButton, setShowMachineButton};
+};
+
+const setAnimate = (machineButton) => {
+  const lowerUpperLimit = [8, 13];
+  const flickers = (flickersPerSecond || lowerUpperLimit[0]);
+  console.log(flickers);
+  const rate =  1000 / flickers;
+  const colorTransition = [
+    {
+      background: "linear-gradient(to right, black, white, black) 200%/90% 100% no-repeat",
+      opacity: 1,
+    },
+    {
+      background: "linear-gradient(to right, black, white, black) 0%/90% 100% no-repeat",
+      opacity: .8,
+    },
+    {
+      background: "linear-gradient(to right, black, white, black) -200%/90% 100% no-repeat",
+      opacity: 0,
+    },
+  ];
+  const timing = {
+    duration: rate,
+    iterations: Infinity,
+  };
+  
+  machineButton.animate(colorTransition, timing);
 };
 
 const setProxy = (
